@@ -1,6 +1,6 @@
 name: shared_preference_app_group
 description: Shared preference supporting iOS App Group capability
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/patrick-fu/flutter_shared_preference_app_group
 
 environment:

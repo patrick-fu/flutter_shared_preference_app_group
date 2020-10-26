@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'shared_preference_app_group'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Shared preference supporting iOS App Group capability'
   s.description      = <<-DESC
 Shared preference supporting iOS App Group capability

@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - shared_preference_app_group (0.0.1):
+  - shared_preference_app_group (0.1.1):
     - Flutter
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  shared_preference_app_group: bbb9c1ad82ab21f3b140beeec5e070ade02512fb
+  shared_preference_app_group: 8f2559e5167cce5b091a9b5dc79be60fbc471f5e
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
 
