@@ -44,7 +44,7 @@ class SharedPreferenceAppGroup {
 
   /// Reads a value of any type from persistent storage.
   static Future<dynamic> get(String key) async {
-    await _channel.invokeMethod('get', {
+    return await _channel.invokeMethod('get', {
       'key': key
     });
   }
