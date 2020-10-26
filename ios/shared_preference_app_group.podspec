@@ -4,10 +4,10 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'shared_preference_app_group'
-  s.version          = '0.0.1'
-  s.summary          = 'Shared preference supporting iOS App Group capabilities'
+  s.version          = '0.1.0'
+  s.summary          = 'Shared preference supporting iOS App Group capability'
   s.description      = <<-DESC
-Shared preference supporting iOS App Group capabilities
+Shared preference supporting iOS App Group capability
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
