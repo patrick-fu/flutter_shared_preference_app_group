@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -9,9 +8,7 @@ class SharedPreferenceAppGroup {
 
   /// Set app group ID for iOS
   static Future<void> setAppGroup(String appGroup) async {
-    await _channel.invokeMethod('setAppGroup', {
-      'appGroup': appGroup
-    });
+    await _channel.invokeMethod('setAppGroup', {'appGroup': appGroup});
   }
 
   /// Saves a boolean [value] to persistent storage in the background.
@@ -44,19 +41,16 @@ class SharedPreferenceAppGroup {
 
   /// Reads a value of any type from persistent storage.
   static Future<dynamic> get(String key) async {
-    return await _channel.invokeMethod('get', {
-      'key': key
-    });
+    return await _channel.invokeMethod('get', {'key': key});
   }
 
   /// Removes an entry from persistent storage.
   static Future<void> remove(String key) async {
-    await _channel.invokeMethod('remove', {
-      'key': key
-    });
+    await _channel.invokeMethod('remove', {'key': key});
   }
 
-  static Future<void> _setValue(String valueType, String key, Object value) async {
+  static Future<void> _setValue(
+      String valueType, String key, Object value) async {
     if (value == null) {
       remove(key);
     } else {
@@ -66,5 +60,4 @@ class SharedPreferenceAppGroup {
       });
     }
   }
-
 }
