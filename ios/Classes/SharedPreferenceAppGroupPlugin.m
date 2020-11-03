@@ -96,11 +96,32 @@
     result(value);
 }
 
+- (void)getAll:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSDictionary *allPreferences = [self.userDefaults persistentDomainForName:self.appGroup];
+    if (allPreferences && allPreferences.count > 0) {
+        result(allPreferences);
+    } else {
+        result(@{});
+    }
+}
+
 - (void)remove:(FlutterMethodCall *)call result:(FlutterResult)result {
     [self checkAppGroup:result];
 
     NSString *key = call.arguments[@"key"];
     [self.userDefaults removeObjectForKey:key];
+    result(nil);
+}
+
+- (void)removeAll:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSDictionary *allPreferences = [self.userDefaults persistentDomainForName:self.appGroup];
+    for (NSString *key in allPreferences) {
+        [self.userDefaults removeObjectForKey:key];
+    }
     result(nil);
 }
 

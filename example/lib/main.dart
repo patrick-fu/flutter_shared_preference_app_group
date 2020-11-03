@@ -54,11 +54,22 @@ class _MyAppState extends State<MyApp> {
     return map;
   }
 
-  void removeParams() {
-    SharedPreferenceAppGroup.remove('MY_BOOL_KEY');
-    SharedPreferenceAppGroup.remove('MY_STRING_KEY');
-    SharedPreferenceAppGroup.remove('MY_INT_KEY');
-    SharedPreferenceAppGroup.remove('MY_DOUBLE_KEY');
+  Future<void> getAllAndPrint() async {
+    Map<String, dynamic> allPreferences = await SharedPreferenceAppGroup.getAll();
+    for (String key in allPreferences.keys) {
+      print('Key: $key, Value: ${allPreferences[key]}');
+    }
+  }
+
+  Future<void> removeParams() async {
+    await SharedPreferenceAppGroup.remove('MY_BOOL_KEY');
+    await SharedPreferenceAppGroup.remove('MY_STRING_KEY');
+    await SharedPreferenceAppGroup.remove('MY_INT_KEY');
+    await SharedPreferenceAppGroup.remove('MY_DOUBLE_KEY');
+  }
+
+  Future<void> removeAll() async {
+    await SharedPreferenceAppGroup.removeAll();
   }
 
   @override
@@ -75,13 +86,13 @@ class _MyAppState extends State<MyApp> {
               children: [
                 Padding(padding: const EdgeInsets.only(top: 50.0)),
                 Text('Only support iOS'),
-                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
                 Text('You should first enable the AppGroup capability for the Runner Target of your Xcode project, and then set the app group id to this plugin through `setAppGroup` function',
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
                 Container(
                   padding: const EdgeInsets.all(0.0),
                   decoration: BoxDecoration(
@@ -89,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                     color: Color(0xff0e88eb),
                   ),
                   width: 240.0,
-                  height: 60.0,
+                  height: 50.0,
                   child: CupertinoButton(
                     child: Text('SetParams',
                       style: TextStyle(
@@ -99,7 +110,7 @@ class _MyAppState extends State<MyApp> {
                     onPressed: setParams,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
                 Container(
                   padding: const EdgeInsets.all(0.0),
                   decoration: BoxDecoration(
@@ -107,17 +118,17 @@ class _MyAppState extends State<MyApp> {
                     color: Color(0xff0e88eb),
                   ),
                   width: 240.0,
-                  height: 60.0,
+                  height: 50.0,
                   child: CupertinoButton(
                     child: Text('RemoveParams',
                       style: TextStyle(
-                        color: Colors.white
+                        color: Colors.white,
                       ),
                     ),
                     onPressed: removeParams,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
                 Container(
                   padding: const EdgeInsets.all(0.0),
                   decoration: BoxDecoration(
@@ -125,7 +136,43 @@ class _MyAppState extends State<MyApp> {
                     color: Color(0xff0e88eb),
                   ),
                   width: 240.0,
-                  height: 60.0,
+                  height: 50.0,
+                  child: CupertinoButton(
+                    child: Text('RemoveAll',
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                    ),
+                    onPressed: removeAll,
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
+                Container(
+                  padding: const EdgeInsets.all(0.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Color(0xff0e88eb),
+                  ),
+                  width: 240.0,
+                  height: 50.0,
+                  child: CupertinoButton(
+                    child: Text('GetAllAndPrint',
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                    ),
+                    onPressed: getAllAndPrint,
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
+                Container(
+                  padding: const EdgeInsets.all(0.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Color(0xff0e88eb),
+                  ),
+                  width: 240.0,
+                  height: 50.0,
                   child: CupertinoButton(
                     child: Text('GetParams',
                       style: TextStyle(
@@ -139,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                     },
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                Padding(padding: const EdgeInsets.only(top: 10.0)),
                 Text('MY_BOOL_KEY: ${this.myParams['MY_BOOL_KEY']}\n'
                      'MY_STRING_KEY: ${this.myParams['MY_STRING_KEY']}\n'
                      'MY_INT_KEY: ${this.myParams['MY_INT_KEY']}\n'
