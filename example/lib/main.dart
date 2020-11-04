@@ -24,6 +24,8 @@ class _MyAppState extends State<MyApp> {
     'MY_DOUBLE_KEY': 0.1
   };
 
+  String displayParamsText = '';
+
   @override
   void initState() {
     super.initState();
@@ -31,37 +33,50 @@ class _MyAppState extends State<MyApp> {
     SharedPreferenceAppGroup.setAppGroup(appGroupID);
   }
 
-  void setParams() {
+  void setMyParams() {
     SharedPreferenceAppGroup.setBool('MY_BOOL_KEY', true);
     SharedPreferenceAppGroup.setString('MY_STRING_KEY', 'STRING_VALUE');
     SharedPreferenceAppGroup.setInt('MY_INT_KEY', 42);
     SharedPreferenceAppGroup.setDouble('MY_DOUBLE_KEY', 9.9);
   }
 
-  Future<Map<String, dynamic>> getParams() async {
+  Future<void> getMyParams() async {
     bool boolValue = await SharedPreferenceAppGroup.get('MY_BOOL_KEY');
     String stringValue = await SharedPreferenceAppGroup.get('MY_STRING_KEY');
     int intValue = await SharedPreferenceAppGroup.get('MY_INT_KEY');
     double doubleValue = await SharedPreferenceAppGroup.get('MY_DOUBLE_KEY');
 
-    Map<String, dynamic> map = {
+    this.myParams = {
       'MY_BOOL_KEY': boolValue,
       'MY_STRING_KEY': stringValue,
       'MY_INT_KEY': intValue,
       'MY_DOUBLE_KEY': doubleValue
     };
 
-    return map;
-  }
-
-  Future<void> getAllAndPrint() async {
-    Map<String, dynamic> allPreferences = await SharedPreferenceAppGroup.getAll();
-    for (String key in allPreferences.keys) {
-      print('Key: $key, Value: ${allPreferences[key]}');
+    String text = '';
+    for (String key in this.myParams.keys) {
+      text += '$key = ${this.myParams[key]}\n';
     }
+
+    setState(() {
+      this.displayParamsText = text;
+    });
   }
 
-  Future<void> removeParams() async {
+  Future<void> getAllParams() async {
+    Map<String, dynamic> allPreferences = await SharedPreferenceAppGroup.getAll();
+
+    String text = '';
+    for (String key in allPreferences.keys) {
+      text += '$key = ${this.myParams[key]}\n';
+    }
+
+    setState(() {
+      this.displayParamsText = text;
+    });
+  }
+
+  Future<void> removeMyParams() async {
     await SharedPreferenceAppGroup.remove('MY_BOOL_KEY');
     await SharedPreferenceAppGroup.remove('MY_STRING_KEY');
     await SharedPreferenceAppGroup.remove('MY_INT_KEY');
@@ -82,7 +97,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: Column(
+            child: ListView(
               children: [
                 Padding(padding: const EdgeInsets.only(top: 50.0)),
                 Text('Only support iOS'),
@@ -107,7 +122,7 @@ class _MyAppState extends State<MyApp> {
                         color: Colors.white
                       ),
                     ),
-                    onPressed: setParams,
+                    onPressed: setMyParams,
                   ),
                 ),
                 Padding(padding: const EdgeInsets.only(top: 10.0)),
@@ -125,7 +140,7 @@ class _MyAppState extends State<MyApp> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: removeParams,
+                    onPressed: removeMyParams,
                   ),
                 ),
                 Padding(padding: const EdgeInsets.only(top: 10.0)),
@@ -151,17 +166,17 @@ class _MyAppState extends State<MyApp> {
                   padding: const EdgeInsets.all(0.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Color(0xff0e88eb),
+                    color: Color(0xff0b5eda),
                   ),
                   width: 240.0,
                   height: 50.0,
                   child: CupertinoButton(
-                    child: Text('GetAllAndPrint',
+                    child: Text('GetAllParams',
                       style: TextStyle(
                         color: Colors.white
                       ),
                     ),
-                    onPressed: getAllAndPrint,
+                    onPressed: getAllParams,
                   ),
                 ),
                 Padding(padding: const EdgeInsets.only(top: 10.0)),
@@ -169,28 +184,21 @@ class _MyAppState extends State<MyApp> {
                   padding: const EdgeInsets.all(0.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Color(0xff0e88eb),
+                    color: Color(0xff0b5eda),
                   ),
                   width: 240.0,
                   height: 50.0,
                   child: CupertinoButton(
-                    child: Text('GetParams',
+                    child: Text('GetMyParams',
                       style: TextStyle(
                         color: Colors.white
                       ),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        getParams().then((value) => this.myParams = value);
-                      });
-                    },
+                    onPressed: getMyParams,
                   ),
                 ),
                 Padding(padding: const EdgeInsets.only(top: 10.0)),
-                Text('MY_BOOL_KEY: ${this.myParams['MY_BOOL_KEY']}\n'
-                     'MY_STRING_KEY: ${this.myParams['MY_STRING_KEY']}\n'
-                     'MY_INT_KEY: ${this.myParams['MY_INT_KEY']}\n'
-                     'MY_DOUBLE_KEY: ${this.myParams['MY_DOUBLE_KEY']}',
+                Text(displayParamsText,
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
