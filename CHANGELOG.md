@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Add `getAll`, `removeAll` functions
+
 ## 0.1.1+1
 
 * Update README
