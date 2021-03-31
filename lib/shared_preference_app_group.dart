@@ -16,33 +16,35 @@ class SharedPreferenceAppGroup {
   /// Saves a boolean [value] to persistent storage under the specified app group.
   ///
   /// If [value] is null, this is equivalent to calling [remove()] on the [key].
-  static Future<void> setBool(String key, bool value) async {
+  static Future<void> setBool(String key, bool? value) async {
     await _setValue('Bool', key, value);
   }
 
   /// Saves an integer [value] to persistent storage under the specified app group.
   ///
   /// If [value] is null, this is equivalent to calling [remove()] on the [key].
-  static Future<void> setInt(String key, int value) async {
+  static Future<void> setInt(String key, int? value) async {
     await _setValue('Int', key, value);
   }
 
   /// Saves a double [value] to persistent storage under the specified app group.
   ///
   /// If [value] is null, this is equivalent to calling [remove()] on the [key].
-  static Future<void> setDouble(String key, double value) async {
+  static Future<void> setDouble(String key, double? value) async {
     await _setValue('Double', key, value);
   }
 
   /// Saves a string [value] to persistent storage under the specified app group.
   ///
   /// If [value] is null, this is equivalent to calling [remove()] on the [key].
-  static Future<void> setString(String key, String value) async {
+  static Future<void> setString(String key, String? value) async {
     await _setValue('String', key, value);
   }
 
   /// Reads a value of any type from persistent storage under the specified app group.
-  static Future<dynamic> get(String key) async {
+  ///
+  /// If the persistent storage does not contains [key], then [null] will be returned
+  static Future<dynamic?> get(String key) async {
     return await _channel.invokeMethod('get', {'key': key});
   }
 
@@ -63,7 +65,7 @@ class SharedPreferenceAppGroup {
   }
 
   static Future<void> _setValue(
-      String valueType, String key, Object value) async {
+      String valueType, String key, Object? value) async {
     if (value == null) {
       remove(key);
     } else {

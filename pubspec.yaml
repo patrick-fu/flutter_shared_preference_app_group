@@ -1,11 +1,11 @@
 name: shared_preference_app_group
 description: Shared preference supporting iOS App Group capability (using `-[NSUserDefaults initWithSuiteName:]`)
-version: 0.2.0
+version: 0.3.0
 homepage: https://github.com/patrick-fu/flutter_shared_preference_app_group
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
-  flutter: ">=1.12.0 <2.0.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=1.20.0"
 
 dependencies:
   flutter:
