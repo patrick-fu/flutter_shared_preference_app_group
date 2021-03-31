@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('shared_preference_app_group');
@@ -17,7 +16,4 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await SharedPreferenceAppGroup.platformVersion, '42');
-  });
 }
