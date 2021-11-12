@@ -37,8 +37,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
     private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
 
-
-
     // Fun fact: The following is a base64 encoding of the string "This is the prefix for a list."
     private static final String LIST_IDENTIFIER = "VGhpcyBpcyB0aGUgcHJlZml4IGZvciBhIGxpc3Qu";
     private static final String BIG_INTEGER_PREFIX = "VGhpcyBpcyB0aGUgcHJlZml4IGZvciBCaWdJbnRlZ2Vy";
