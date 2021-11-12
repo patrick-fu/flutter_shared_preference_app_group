@@ -12,7 +12,7 @@ import io.flutter.plugin.common.BinaryMessenger;
 
 /** SharedPreferenceAppGroupPlugin */
 public class SharedPreferenceAppGroupPlugin implements FlutterPlugin {
-  private static final String CHANNEL_NAME = "shared_preference_app_group";
+  private static final String CHANNEL_NAME = "FlutterSharedPreferences";
 
   private MethodChannel channel;
   private MethodCallHandlerImpl handler;
