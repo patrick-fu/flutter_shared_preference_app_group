@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     // The app group must be set up first
-    SharedPreferenceAppGroup.setAppGroup(appGroupID);
+    SharedPreferenceAppGroup.setAppGroup(appGroupAndroid: 'com.example.test1', appGroupIOS: appGroupID);
   }
 
   void setMyParams() {

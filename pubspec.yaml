@@ -28,3 +28,6 @@ flutter:
     platforms:
       ios:
         pluginClass: SharedPreferenceAppGroupPlugin
+      android:
+        package: im.zego.shared_preference_app_group
+        pluginClass: SharedPreferenceAppGroupPlugin
