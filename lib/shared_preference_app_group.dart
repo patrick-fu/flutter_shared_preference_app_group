@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 
 class SharedPreferenceAppGroup {
-  /*static const MethodChannel _channel =
-  const MethodChannel('shared_preference_app_group');*/
   static const MethodChannel _channel = const MethodChannel('FlutterSharedPreferences');
 
   /// Set app group ID for iOS
