@@ -41,11 +41,50 @@ class SharedPreferenceAppGroup {
     await _setValue('String', key, value);
   }
 
-  /// Reads a value of any type from persistent storage under the specified app group.
+  /// Saves a string array [value] to persistent storage under the specified app group.
+  ///
+  /// If [value] is null, this is equivalent to calling [remove()] on the [key].
+  static Future<void> setStringArray(String key, List<String>? value) async {
+    await _setValue('StringArray', key, value);
+  }
+
+  /// Reads a boolean value from persistent storage under the specified app group.
   ///
   /// If the persistent storage does not contains [key], then [null] will be returned
-  static Future<dynamic> get(String key) async {
-    return await _channel.invokeMethod('get', {'key': key});
+  static Future<bool?> getBool(String key) async {
+    return await _channel.invokeMethod('getBool', {'key': key});
+  }
+
+  /// Reads a integer value from persistent storage under the specified app group.
+  ///
+  /// If the persistent storage does not contains [key], then [null] will be returned
+  static Future<int?> getInt(String key) async {
+    return await _channel.invokeMethod('getInt', {'key': key});
+  }
+
+  /// Reads a double value from persistent storage under the specified app group.
+  ///
+  /// If the persistent storage does not contains [key], then [null] will be returned
+  static Future<double?> getDouble(String key) async {
+    return await _channel.invokeMethod('getDouble', {'key': key});
+  }
+
+  /// Reads a string value from persistent storage under the specified app group.
+  ///
+  /// If the persistent storage does not contains [key], then [null] will be returned
+  static Future<String?> getString(String key) async {
+    return await _channel.invokeMethod('getString', {'key': key});
+  }
+
+  /// Reads a string array value from persistent storage under the specified app group.
+  ///
+  /// If the persistent storage does not contains [key], then [null] will be returned
+  static Future<List<String>?> getStringArray(String key) async {
+    final List? receivedArray = await _channel.invokeMethod('getStringArray', {'key': key});
+    if (receivedArray != null) {
+      return receivedArray.cast<String>();
+    }
+    return null;
   }
 
   /// Reads all key-value pairs from persistent storage under the specified app group.

@@ -88,11 +88,52 @@
     result(nil);
 }
 
-- (void)get:(FlutterMethodCall *)call result:(FlutterResult)result {
+- (void)setStringArray:(FlutterMethodCall *)call result:(FlutterResult)result {
     [self checkAppGroup:result];
 
     NSString *key = call.arguments[@"key"];
-    id value = [self.userDefaults valueForKey:key];
+    NSArray *value = call.arguments[@"value"];
+    [self.userDefaults setValue:value forKey:key];
+    result(nil);
+}
+
+- (void)getBool:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSString *key = call.arguments[@"key"];
+    NSNumber *value = [NSNumber numberWithBool:[self.userDefaults boolForKey:key]];
+    result(value);
+}
+
+- (void)getInt:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSString *key = call.arguments[@"key"];
+    NSNumber *value = [NSNumber numberWithLong:[self.userDefaults integerForKey:key]];
+    result(value);
+}
+
+- (void)getDouble:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSString *key = call.arguments[@"key"];
+    NSNumber *value = [NSNumber numberWithDouble:[self.userDefaults doubleForKey:key]];
+    result(value);
+}
+
+- (void)getString:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSString *key = call.arguments[@"key"];
+    NSString *value = [self.userDefaults stringForKey:key];
+    result(value);
+}
+
+- (void)getStringArray:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSString *key = call.arguments[@"key"];
+    NSArray<NSString *> *value = [self.userDefaults stringArrayForKey:key];
     result(value);
 }
 
