@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     SharedPreferenceAppGroup.setString('MY_STRING_KEY', 'STRING_VALUE');
     SharedPreferenceAppGroup.setInt('MY_INT_KEY', 42);
     SharedPreferenceAppGroup.setDouble('MY_DOUBLE_KEY', 9.9);
-    SharedPreferenceAppGroup.setStringArray('MY_STRING_ARRAY', ["element1", "element2", "element3"]);
+    SharedPreferenceAppGroup.setStringList('MY_STRING_ARRAY', ["element1", "element2", "element3"]);
   }
 
   Future<void> getMyParams() async {

@@ -41,10 +41,10 @@ class SharedPreferenceAppGroup {
     await _setValue('String', key, value);
   }
 
-  /// Saves a string array [value] to persistent storage under the specified app group.
+  /// Saves a string list [value] to persistent storage under the specified app group.
   ///
   /// If [value] is null, this is equivalent to calling [remove()] on the [key].
-  static Future<void> setStringArray(String key, List<String>? value) async {
+  static Future<void> setStringList(String key, List<String>? value) async {
     await _setValue('StringArray', key, value);
   }
 
