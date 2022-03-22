@@ -79,7 +79,7 @@ class SharedPreferenceAppGroup {
   /// Reads a string array value from persistent storage under the specified app group.
   ///
   /// If the persistent storage does not contains [key], then [null] will be returned
-  static Future<List<String>?> getStringArray(String key) async {
+  static Future<List<String>?> getStringList(String key) async {
     final List? receivedArray = await _channel.invokeMethod('getStringArray', {'key': key});
     if (receivedArray != null) {
       return receivedArray.cast<String>();
