@@ -38,19 +38,22 @@ class _MyAppState extends State<MyApp> {
     SharedPreferenceAppGroup.setString('MY_STRING_KEY', 'STRING_VALUE');
     SharedPreferenceAppGroup.setInt('MY_INT_KEY', 42);
     SharedPreferenceAppGroup.setDouble('MY_DOUBLE_KEY', 9.9);
+    SharedPreferenceAppGroup.setStringList('MY_STRING_ARRAY', ["element1", "element2", "element3"]);
   }
 
   Future<void> getMyParams() async {
-    bool boolValue = await SharedPreferenceAppGroup.get('MY_BOOL_KEY');
-    String stringValue = await SharedPreferenceAppGroup.get('MY_STRING_KEY');
-    int intValue = await SharedPreferenceAppGroup.get('MY_INT_KEY');
-    double doubleValue = await SharedPreferenceAppGroup.get('MY_DOUBLE_KEY');
+    bool boolValue = await SharedPreferenceAppGroup.getBool('MY_BOOL_KEY');
+    String stringValue = await SharedPreferenceAppGroup.getString('MY_STRING_KEY');
+    int intValue = await SharedPreferenceAppGroup.getInt('MY_INT_KEY');
+    double doubleValue = await SharedPreferenceAppGroup.getDouble('MY_DOUBLE_KEY');
+    List<String> stringArrayValue = await SharedPreferenceAppGroup.getStringList('MY_STRING_ARRAY');
 
     this.myParams = {
       'MY_BOOL_KEY': boolValue,
       'MY_STRING_KEY': stringValue,
       'MY_INT_KEY': intValue,
-      'MY_DOUBLE_KEY': doubleValue
+      'MY_DOUBLE_KEY': doubleValue,
+      'MY_STRING_ARRAY': stringArrayValue
     };
 
     String text = '';
