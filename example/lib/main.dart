@@ -42,11 +42,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getMyParams() async {
-    bool boolValue = await SharedPreferenceAppGroup.getBool('MY_BOOL_KEY');
-    String stringValue = await SharedPreferenceAppGroup.getString('MY_STRING_KEY');
-    int intValue = await SharedPreferenceAppGroup.getInt('MY_INT_KEY');
-    double doubleValue = await SharedPreferenceAppGroup.getDouble('MY_DOUBLE_KEY');
-    List<String> stringArrayValue = await SharedPreferenceAppGroup.getStringList('MY_STRING_ARRAY');
+    bool boolValue =
+        await SharedPreferenceAppGroup.getBool('MY_BOOL_KEY') ?? false;
+    String stringValue =
+        await SharedPreferenceAppGroup.getString('MY_STRING_KEY') ?? 'null';
+    int intValue = await SharedPreferenceAppGroup.getInt('MY_INT_KEY') ?? 0;
+    double doubleValue =
+        await SharedPreferenceAppGroup.getDouble('MY_DOUBLE_KEY') ?? 0.0;
+    List<String> stringArrayValue =
+        await SharedPreferenceAppGroup.getStringList('MY_STRING_ARRAY') ?? [];
 
     this.myParams = {
       'MY_BOOL_KEY': boolValue,
