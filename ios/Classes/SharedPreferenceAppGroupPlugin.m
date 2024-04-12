@@ -97,6 +97,14 @@
     result(nil);
 }
 
+- (void)get:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [self checkAppGroup:result];
+
+    NSString *key = call.arguments[@"key"];
+    id value = [self.userDefaults valueForKey:key];
+    result(value);
+}
+
 - (void)getBool:(FlutterMethodCall *)call result:(FlutterResult)result {
     [self checkAppGroup:result];
 
