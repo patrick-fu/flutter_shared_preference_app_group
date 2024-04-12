@@ -1,3 +1,9 @@
+## 1.1.0
+
+* Added retrieving string array, getting values of individual types by @XuanHanTan in #7
+
+* Add iOS privacy manifest by @konnic in #9
+
 ## 1.0.0
 
 * Adapt to flutter v2.10

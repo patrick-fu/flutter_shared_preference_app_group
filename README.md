@@ -23,14 +23,16 @@ await SharedPreferenceAppGroup.setBool('MY_BOOL_KEY', true);
 await SharedPreferenceAppGroup.setString('MY_STRING_KEY', 'STRING_VALUE');
 await SharedPreferenceAppGroup.setInt('MY_INT_KEY', 42);
 await SharedPreferenceAppGroup.setDouble('MY_DOUBLE_KEY', 9.9);
+await SharedPreferenceAppGroup.setStringList('MY_STRING_ARRAY', ["element1", "element2", "element3"]);
 ```
 
 ```dart
 // Get values
-bool boolValue = await SharedPreferenceAppGroup.get('MY_BOOL_KEY');
-String stringValue = await SharedPreferenceAppGroup.get('MY_STRING_KEY');
-int intValue = await SharedPreferenceAppGroup.get('MY_INT_KEY');
-double doubleValue = await SharedPreferenceAppGroup.get('MY_DOUBLE_KEY');
+bool boolValue = await SharedPreferenceAppGroup.getBool('MY_BOOL_KEY') ?? false;
+String stringValue = await SharedPreferenceAppGroup.getString('MY_STRING_KEY') ?? 'null';
+int intValue = await SharedPreferenceAppGroup.getInt('MY_INT_KEY') ?? 0;
+double doubleValue = await SharedPreferenceAppGroup.getDouble('MY_DOUBLE_KEY') ?? 0.0;
+List<String> stringArrayValue = await SharedPreferenceAppGroup.getStringList('MY_STRING_ARRAY') ?? [];
 ```
 
 Please see the example app of this plugin for a full example.
