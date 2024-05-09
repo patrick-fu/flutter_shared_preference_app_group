@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Remove the unneeded empty dictionary in NSPrivacyCollectedDataTypes by @alirp88 in #11
+
 ## 1.1.0
 
 * Added retrieving string array, getting values of individual types by @XuanHanTan in #7
