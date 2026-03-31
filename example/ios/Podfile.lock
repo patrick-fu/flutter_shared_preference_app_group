@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - shared_preference_app_group (1.0.0):
+  - shared_preference_app_group (2.0.0):
     - Flutter
 
 DEPENDENCIES:
@@ -14,9 +14,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preference_app_group/ios"
 
 SPEC CHECKSUMS:
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  shared_preference_app_group: 46aee3873e1da581d4904bece9876596d7f66725
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  shared_preference_app_group: c3dd00bde749c019e2f3dcae8edbe5fd6d5cc998
 
-PODFILE CHECKSUM: 1a782344d33c12ced0182eeab11e8668d253eb48
+PODFILE CHECKSUM: 3ce3a3b82c5cf6a622cb22850b0afa4ee279bea6
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

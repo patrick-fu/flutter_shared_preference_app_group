@@ -6,6 +6,16 @@ Shared preference supporting iOS App Group capability (using `-[NSUserDefaults i
 
 > Note: Only support iOS
 
+## Compatibility
+
+This plugin currently supports:
+
+- Flutter `>=3.41.0`
+- Dart `>=3.11.0`
+- iOS `>=13.0`
+
+The iOS implementation supports both CocoaPods and Swift Package Manager. Swift Package Manager is the default dependency manager for newer Flutter iOS projects, while CocoaPods remains supported for existing projects.
+
 ## Usage
 
 To use this plugin, add `shared_preference_app_group` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
