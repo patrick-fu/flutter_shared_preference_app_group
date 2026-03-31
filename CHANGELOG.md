@@ -1,3 +1,9 @@
+## 2.0.0
+
+* Add Swift Package Manager support for iOS.
+* Raise the minimum supported Flutter version to 3.41.0 and Dart version to 3.11.0.
+* Raise the minimum supported iOS version to 13.0.
+
 ## 1.1.1
 
 * Remove the unneeded empty dictionary in NSPrivacyCollectedDataTypes by @alirp88 in #11
