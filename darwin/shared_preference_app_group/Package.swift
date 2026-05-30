@@ -6,6 +6,7 @@ let package = Package(
     name: "shared_preference_app_group",
     platforms: [
         .iOS("13.0"),
+        .macOS("10.15"),
     ],
     products: [
         .library(

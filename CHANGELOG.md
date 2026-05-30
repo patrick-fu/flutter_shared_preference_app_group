@@ -1,3 +1,8 @@
+## 2.1.0
+
+* Add macOS support, sharing the Darwin implementation with iOS via `sharedDarwinSource`.
+* Support both Swift Package Manager and CocoaPods on macOS.
+
 ## 2.0.0
 
 * Add Swift Package Manager support for iOS.

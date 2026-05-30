@@ -16,8 +16,10 @@ Shared preference supporting iOS App Group capability
   s.source_files = 'shared_preference_app_group/Sources/shared_preference_app_group/**/*.{h,m}'
   s.exclude_files = 'shared_preference_app_group/Sources/shared_preference_app_group/PrivacyInfo.xcprivacy'
   s.public_header_files = 'shared_preference_app_group/Sources/shared_preference_app_group/include/**/*.h'
-  s.dependency 'Flutter'
-  s.platform = :ios, '13.0'
+  s.ios.dependency 'Flutter'
+  s.osx.dependency 'FlutterMacOS'
+  s.ios.deployment_target = '13.0'
+  s.osx.deployment_target = '10.15'
   s.resource_bundles = {'shared_preference_app_group_privacy' => ['shared_preference_app_group/Sources/shared_preference_app_group/PrivacyInfo.xcprivacy']}
 
   # Flutter.framework does not contain a i386 slice.
