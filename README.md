@@ -4,7 +4,7 @@
 
 Shared preference supporting iOS App Group capability (using `-[NSUserDefaults initWithSuiteName:]`)
 
-> Note: Only support iOS
+> Note: Supports iOS and macOS
 
 ## Compatibility
 
@@ -13,8 +13,11 @@ This plugin currently supports:
 - Flutter `>=3.41.0`
 - Dart `>=3.11.0`
 - iOS `>=13.0`
+- macOS `>=10.15`
 
-The iOS implementation supports both CocoaPods and Swift Package Manager. Swift Package Manager is the default dependency manager for newer Flutter iOS projects, while CocoaPods remains supported for existing projects.
+The iOS and macOS implementations support both CocoaPods and Swift Package Manager. Swift Package Manager is the default dependency manager for newer Flutter projects, while CocoaPods remains supported for existing projects.
+
+> On macOS, App Groups require the app to use the App Sandbox capability and to list the group identifier under `com.apple.security.application-groups` in its `.entitlements` file. macOS prefixes the suite name with your team identifier.
 
 ## Usage
 
