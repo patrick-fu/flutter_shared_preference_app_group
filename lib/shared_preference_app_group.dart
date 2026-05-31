@@ -119,7 +119,7 @@ class SharedPreferenceAppGroup {
     Object? value,
   ) async {
     if (value == null) {
-      remove(key);
+      await remove(key);
     } else {
       await _channel.invokeMethod('set$valueType', {
         'key': key,
