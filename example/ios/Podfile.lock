@@ -1,21 +1,22 @@
 PODS:
   - Flutter (1.0.0)
-  - shared_preference_app_group (2.0.0):
+  - shared_preference_app_group (2.1.0):
     - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - shared_preference_app_group (from `.symlinks/plugins/shared_preference_app_group/ios`)
+  - shared_preference_app_group (from `.symlinks/plugins/shared_preference_app_group/darwin`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   shared_preference_app_group:
-    :path: ".symlinks/plugins/shared_preference_app_group/ios"
+    :path: ".symlinks/plugins/shared_preference_app_group/darwin"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  shared_preference_app_group: c3dd00bde749c019e2f3dcae8edbe5fd6d5cc998
+  shared_preference_app_group: 761ef961f5757280c4287c94483dc740235137cd
 
 PODFILE CHECKSUM: 3ce3a3b82c5cf6a622cb22850b0afa4ee279bea6
 

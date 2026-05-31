@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class SharedPreferenceAppGroup {
-  static const MethodChannel _channel =
-      const MethodChannel('shared_preference_app_group');
+  static const MethodChannel _channel = MethodChannel(
+    'shared_preference_app_group',
+  );
 
-  /// Set app group ID for iOS
+  /// Set app group ID for iOS or macOS.
   ///
   /// Developers must invoke this function to set the [appGroup] before invoking other functions.
   static Future<void> setAppGroup(String appGroup) async {
@@ -87,7 +88,9 @@ class SharedPreferenceAppGroup {
   ///
   /// If the persistent storage does not contains [key], then [null] will be returned
   static Future<List<String>?> getStringList(String key) async {
-    final List? receivedArray = await _channel.invokeMethod('getStringArray', {'key': key});
+    final List? receivedArray = await _channel.invokeMethod('getStringArray', {
+      'key': key,
+    });
     if (receivedArray != null) {
       return receivedArray.cast<String>();
     }
@@ -111,9 +114,12 @@ class SharedPreferenceAppGroup {
   }
 
   static Future<void> _setValue(
-      String valueType, String key, Object? value) async {
+    String valueType,
+    String key,
+    Object? value,
+  ) async {
     if (value == null) {
-      remove(key);
+      await remove(key);
     } else {
       await _channel.invokeMethod('set$valueType', {
         'key': key,

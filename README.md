@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/shared_preference_app_group.svg)](https://pub.dev/packages/shared_preference_app_group)
 
-Shared preference supporting iOS App Group capability (using `-[NSUserDefaults initWithSuiteName:]`)
+Shared preferences for iOS and macOS App Groups (using `-[NSUserDefaults initWithSuiteName:]`)
 
 > Note: Supports iOS and macOS
 
@@ -17,7 +17,7 @@ This plugin currently supports:
 
 The iOS and macOS implementations support both CocoaPods and Swift Package Manager. Swift Package Manager is the default dependency manager for newer Flutter projects, while CocoaPods remains supported for existing projects.
 
-> On macOS, App Groups require the app to use the App Sandbox capability and to list the group identifier under `com.apple.security.application-groups` in its `.entitlements` file. macOS prefixes the suite name with your team identifier.
+> On macOS, App Groups require the app to use the App Sandbox capability and to list the group identifier under `com.apple.security.application-groups` in its `.entitlements` file. The value passed to `setAppGroup` must exactly match an identifier in the entitlements file; this plugin does not add a team identifier automatically.
 
 ## Usage
 

@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: "3.41.5"
+
+jobs:
+  flutter:
+    name: Flutter analysis and package checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install root dependencies
+        run: flutter pub get
+
+      - name: Install example dependencies
+        working-directory: example
+        run: flutter pub get
+
+      - name: Verify Dart formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test
+
+      - name: Validate package publishing
+        run: flutter pub publish --dry-run
+
+  darwin:
+    name: Darwin integration checks
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Enable macOS desktop
+        run: flutter config --enable-macos-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Install example dependencies
+        working-directory: example
+        run: flutter pub get
+
+      - name: Validate CocoaPods spec
+        run: |
+          pod ipc spec darwin/shared_preference_app_group.podspec > /tmp/shared_preference_app_group.podspec.json
+          ruby -rjson -e '
+            spec = JSON.parse(File.read("/tmp/shared_preference_app_group.podspec.json"))
+            abort("podspec version mismatch") unless spec["version"] == "2.1.0"
+            abort("missing iOS platform") unless spec.dig("platforms", "ios") == "13.0"
+            abort("missing macOS platform") unless spec.dig("platforms", "osx") == "10.15"
+            abort("missing Flutter dependency") unless spec.dig("ios", "dependencies", "Flutter")
+            abort("missing FlutterMacOS dependency") unless spec.dig("osx", "dependencies", "FlutterMacOS")
+          '
+
+      - name: Validate Swift Package manifest
+        run: |
+          mkdir -p darwin/FlutterFramework/Sources/FlutterFramework
+          cat > darwin/FlutterFramework/Package.swift <<'SWIFT'
+          // swift-tools-version: 5.9
+          import PackageDescription
+
+          let package = Package(
+              name: "FlutterFramework",
+              products: [
+                  .library(name: "FlutterFramework", targets: ["FlutterFramework"]),
+              ],
+              targets: [
+                  .target(name: "FlutterFramework"),
+              ]
+          )
+          SWIFT
+          touch darwin/FlutterFramework/Sources/FlutterFramework/FlutterFramework.swift
+          swift package describe --package-path darwin/shared_preference_app_group
+
+      - name: Install iOS CocoaPods dependencies
+        working-directory: example/ios
+        run: pod install --repo-update
+
+      - name: Build iOS example for simulator
+        working-directory: example
+        run: flutter build ios --simulator --debug
+
+      - name: Generate macOS example project
+        working-directory: example
+        run: flutter create --platforms=macos .
+
+      - name: Build macOS example
+        working-directory: example
+        run: flutter build macos --debug

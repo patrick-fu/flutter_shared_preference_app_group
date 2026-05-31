@@ -44,13 +44,32 @@
 #pragma mark - Handle method call
 
 - (void)setAppGroup:(FlutterMethodCall *)call result:(FlutterResult)result {
-    self.appGroup = call.arguments[@"appGroup"];
-    self.userDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroup];
+    NSDictionary *arguments = call.arguments;
+    if (![arguments isKindOfClass:[NSDictionary class]]) {
+        result([FlutterError errorWithCode:@"INVALID_ARGUMENTS" message:@"`setAppGroup` arguments must be a map" details:nil]);
+        return;
+    }
+
+    id appGroup = arguments[@"appGroup"];
+    if (![appGroup isKindOfClass:[NSString class]] || ((NSString *)appGroup).length == 0) {
+        result([FlutterError errorWithCode:@"INVALID_APP_GROUP" message:@"`appGroup` must be a non-empty string" details:nil]);
+        return;
+    }
+
+    self.appGroup = appGroup;
+    self.userDefaults = [[NSUserDefaults alloc] initWithSuiteName:self.appGroup];
+    if (!self.userDefaults) {
+        result([FlutterError errorWithCode:@"APP_GROUP_COULD_NOT_BE_OPENED" message:@"Could not open the specified app group" details:nil]);
+        return;
+    }
+
     result(nil);
 }
 
 - (void)setBool:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSNumber *value = call.arguments[@"value"];
@@ -59,7 +78,9 @@
 }
 
 - (void)setInt:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSNumber *value = call.arguments[@"value"];
@@ -71,7 +92,9 @@
 }
 
 - (void)setDouble:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSNumber *value = call.arguments[@"value"];
@@ -80,7 +103,9 @@
 }
 
 - (void)setString:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSString *value = call.arguments[@"value"];
@@ -89,7 +114,9 @@
 }
 
 - (void)setStringArray:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSArray *value = call.arguments[@"value"];
@@ -98,7 +125,9 @@
 }
 
 - (void)get:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     id value = [self.userDefaults valueForKey:key];
@@ -106,7 +135,9 @@
 }
 
 - (void)getBool:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSNumber *value = [NSNumber numberWithBool:[self.userDefaults boolForKey:key]];
@@ -114,7 +145,9 @@
 }
 
 - (void)getInt:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSNumber *value = [NSNumber numberWithLong:[self.userDefaults integerForKey:key]];
@@ -122,7 +155,9 @@
 }
 
 - (void)getDouble:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSNumber *value = [NSNumber numberWithDouble:[self.userDefaults doubleForKey:key]];
@@ -130,7 +165,9 @@
 }
 
 - (void)getString:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSString *value = [self.userDefaults stringForKey:key];
@@ -138,7 +175,9 @@
 }
 
 - (void)getStringArray:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     NSArray<NSString *> *value = [self.userDefaults stringArrayForKey:key];
@@ -146,7 +185,9 @@
 }
 
 - (void)getAll:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSDictionary *allPreferences = [self.userDefaults persistentDomainForName:self.appGroup];
     if (allPreferences && allPreferences.count > 0) {
@@ -157,7 +198,9 @@
 }
 
 - (void)remove:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSString *key = call.arguments[@"key"];
     [self.userDefaults removeObjectForKey:key];
@@ -165,7 +208,9 @@
 }
 
 - (void)removeAll:(FlutterMethodCall *)call result:(FlutterResult)result {
-    [self checkAppGroup:result];
+    if (![self checkAppGroup:result]) {
+        return;
+    }
 
     NSDictionary *allPreferences = [self.userDefaults persistentDomainForName:self.appGroup];
     for (NSString *key in allPreferences) {
@@ -176,10 +221,13 @@
 
 #pragma mark - Private
 
-- (void)checkAppGroup:(FlutterResult)result {
+- (BOOL)checkAppGroup:(FlutterResult)result {
     if (!self.appGroup || !self.userDefaults) {
         result([FlutterError errorWithCode:@"APP_GROUP_HAS_NOT_BEEN_SET" message:@"You need to call `setAppGroup` before using" details:nil]);
+        return NO;
     }
+
+    return YES;
 }
 
 
