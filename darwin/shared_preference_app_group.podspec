@@ -4,10 +4,10 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'shared_preference_app_group'
-  s.version          = '2.0.0'
-  s.summary          = 'Shared preference supporting iOS App Group capability'
+  s.version          = '2.1.0'
+  s.summary          = 'Shared preferences for iOS and macOS App Groups'
   s.description      = <<-DESC
-Shared preference supporting iOS App Group capability
+Shared preferences for iOS and macOS App Groups
                        DESC
   s.homepage         = 'https://github.com/patrick-fu/flutter_shared_preference_app_group'
   s.license          = { :file => '../LICENSE' }
